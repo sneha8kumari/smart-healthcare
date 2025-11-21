@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Walk-in Token</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script> 
+    <div id="qrcode"></div>
+     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+    <!-- jsPDF Script (THIS IS STEP 6) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<body class="container mt-4">
+
+<h1>Take Walk-in Token</h1>
+
+<label>User ID:</label>
+<input id="user_id"><br><br>
+
+<label>Doctor ID (optional):</label>
+<input id="doctor_id"><br><br>
+
+<button onclick="takeToken()">Get Token</button>
+
+<p id="result"></p>
+<button onclick="downloadPDF()">Download PDF</button>
+
+<script>
+async function takeToken() {
+    const user_id = document.getElementById("user_id").value;
+    const doctor_id = document.getElementById("doctor_id").value;
+
+    let res = await fetch("http://localhost:5000/api/walkin", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ user_id, doctor_id })
+    });
+
+    let data = await res.json();
+    document.getElementById("result").innerText = 
+        "Your Token Number = " + data.token_no;
+    RCode.toCanvas(document.getElementById("qrcode"), 
+        "Token: " + data.token_no, 
+        function (error) {
+            if (error) console.error(error);
+        });
+}
+</script>
+
+</body>
+</html>
+
