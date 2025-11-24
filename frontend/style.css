@@ -1,0 +1,126 @@
+/* -------------------------------
+   GLOBAL PAGE STYLE (All Pages)
+--------------------------------*/
+body {
+    background: #f4faff;
+    font-family: "Segoe UI", sans-serif;
+    padding: 20px;
+}
+
+.container-box {
+    max-width: 500px;
+    margin: auto;
+    background: lightgoldenrodyellow;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 18px rgba(0,0,0,0.08);
+}
+
+/* -------------------------------
+   HEADINGS
+--------------------------------*/
+h1, h2 {
+    text-align: center;
+    color: #0066cc;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* -------------------------------
+   INPUT FIELDS
+--------------------------------*/
+input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #bcd4e6;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+/* -------------------------------
+   BUTTONS
+--------------------------------*/
+button, .btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px !important;
+    background: #0066cc !important;
+    color: white !important;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+button:hover, .btn:hover {
+    background: #004a99 !important;
+}
+
+/* -------------------------------
+   RESULT TEXT
+--------------------------------*/
+#result, .success-message {
+    text-align: center;
+    color: #008000;
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+/* -------------------------------
+   LIST STYLING
+--------------------------------*/
+ul {
+    padding-left: 0;
+}
+
+ul li {
+    list-style: none;
+    background: #e9f3ff;
+    margin: 6px 0;
+    padding: 10px;
+    border-radius: 10px;
+    border-left: 5px solid #0066cc;
+}
+
+/* -------------------------------
+   QR CODE
+--------------------------------*/
+#qrcode {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+/* -------------------------------
+   LOGIN CARD STYLE
+--------------------------------*/
+.login-box {
+    max-width: 400px;
+    margin: auto;
+    padding: 25px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+/* -------------------------------
+   NAVIGATION LINK STYLE
+--------------------------------*/
+.menu-link {
+    display: block;
+    padding: 12px;
+    background: #ffffff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 5px solid #0066cc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    color: #004a99;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.menu-link:hover {
+    background: #e2f0ff;
+}
