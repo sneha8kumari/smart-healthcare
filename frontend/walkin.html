@@ -28,38 +28,30 @@
 
 <!-- ⭐ QR Code will appear here -->
 <div id="qrcode" class="mt-3"></div>
-
 <script>
-// ------------------------------
-// Generate Walk-In Token
-// ------------------------------
 async function takeToken() {
-    const user_id = document.getElementById("user_id").value;
-    const doctor_id = document.getElementById("doctor_id").value;
+    const user_id = document.getElementById("user_id").value.trim();
+    const doctor_id = document.getElementById("doctor_id").value.trim();
+
+    if (!user_id) {
+        alert("Please enter User ID");
+        return;
+    }
+    if (!user_id)
+    return res.status(400).json({ error: "User ID needed" });
 
     let res = await fetch("http://localhost:5000/api/walkin", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id, doctor_id })
     });
 
     let data = await res.json();
-
     document.getElementById("result").innerText =
         "Your Token Number = " + data.token_no;
-
-    // ------------------------------
-    // Generate QR Code
-    // ------------------------------
-    QRCode.toCanvas(
-        document.getElementById("qrcode"),
-        "Token Number: " + data.token_no,
-        function(err) {
-            if (err) console.error(err);
-        }
-    );
 }
 </script>
+
 
 </body>
 </html>

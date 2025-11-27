@@ -3,30 +3,37 @@
 <head>
     <title>Book Appointment</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<body class="container mt-4">
 
-<h1>Book Appointment</h1>
+<body>
 
-<label>User ID:</label>
-<input id="user_id"><br><br>
+<div class="container-box" style="max-width:420px;">
 
-<label>Select Doctor:</label>
-<select id="doctor"></select><br><br>
+    <h1 class="text-center">📅 Book Appointment</h1>
 
-<label>Date:</label>
-<input id="date" type="date"><br><br>
+    <label><i class="fa-solid fa-id-card"></i> User ID:</label>
+    <input id="user_id" type="number" placeholder="Enter user ID">
 
-<label>Time:</label>
-<input id="time" type="time"><br><br>
+    <label><i class="fa-solid fa-user-doctor"></i> Select Doctor:</label>
+    <select id="doctor"></select>
 
-<button onclick="book()">Book</button>
+    <label><i class="fa-regular fa-calendar-days"></i> Select Date:</label>
+    <input id="date" type="date">
 
-<p id="result"></p>
+    <label><i class="fa-regular fa-clock"></i> Select Time:</label>
+    <input id="time" type="time">
+
+    <button onclick="book()">Book Appointment</button>
+
+    <p id="result" class="success-message"></p>
+</div>
 
 <script>
 // Load doctors on page load
@@ -35,10 +42,12 @@ window.onload = async function() {
     const doctors = await res.json();
 
     let select = document.getElementById("doctor");
+    select.innerHTML = `<option value="">-- Select Doctor --</option>`;
+
     doctors.forEach(doc => {
         let option = document.createElement("option");
         option.value = doc.id;
-        option.text = doc.name + " (" + doc.department + ")";
+        option.text = `${doc.name} (${doc.department})`;
         select.add(option);
     });
 };
@@ -49,18 +58,26 @@ async function book() {
     const date = document.getElementById("date").value;
     const time = document.getElementById("time").value;
 
+    // Validation
+    if (!user_id) return alert("Enter user ID");
+    if (!doctor_id) return alert("Select a doctor");
+    if (!date) return alert("Select a date");
+    if (!time) return alert("Select a time");
+
     let res = await fetch("http://localhost:5000/api/appointments", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type":"application/json" },
         body: JSON.stringify({ user_id, doctor_id, date, time })
     });
 
     let data = await res.json();
-    document.getElementById("result").innerText = 
+
+    if (data.error) return alert("Error: " + data.error);
+
+    document.getElementById("result").innerText =
         "Appointment Booked! ID = " + data.appointment_id;
 }
 </script>
 
 </body>
 </html>
-

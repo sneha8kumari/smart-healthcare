@@ -82,14 +82,22 @@ app.get('/api/doctors', (req, res) => {
 });
 
 // book appointment
-app.post('/api/appointments', (req, res) => {
-  const { user_id, doctor_id, date, time } = req.body;
-  db.run("INSERT INTO appointments(user_id, doctor_id, date, time) VALUES(?, ?, ?, ?)",
-    [user_id, doctor_id, date, time],
-    function(err) {
-      if (err) return sendError(res, err);
-      res.json({ appointment_id: this.lastID });
-    });
+app.post("/api/appointments", (req, res) => {
+    const { user_id, doctor_id, date, time } = req.body;
+
+    // ⭐ BACKEND VALIDATION
+    if (!user_id || !doctor_id || !date || !time) {
+        return res.status(400).json({ error: "All fields are required" });
+    }
+
+    db.run(
+        "INSERT INTO appointments(user_id, doctor_id, date, time) VALUES(?, ?, ?, ?)",
+        [user_id, doctor_id, date, time],
+        function(err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ appointment_id: this.lastID });
+        }
+    );
 });
 
 // cancel appt

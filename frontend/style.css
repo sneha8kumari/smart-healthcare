@@ -10,7 +10,7 @@ body {
 .container-box {
     max-width: 500px;
     margin: auto;
-    background: lightgoldenrodyellow;
+    background: lightskyblue;
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 0 18px rgba(0,0,0,0.08);
@@ -110,7 +110,7 @@ ul li {
 --------------------------------*/
 .menu-link {
     display: block;
-    padding: 12px;
+    padding: 8px;
     background: #ffffff;
     border-radius: 10px;
     margin-bottom: 10px;
@@ -123,4 +123,12 @@ ul li {
 
 .menu-link:hover {
     background: #e2f0ff;
+}
+h1 {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity:0; transform: translateY(-10px); }
+    to { opacity:1; transform: translateY(0); }
 }
